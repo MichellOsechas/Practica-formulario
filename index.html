@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form">
+        
+        <label for="">Todos los campos son obligatorios:</label><br>      
+        <input type="text" name="Nombre" placeholder="Ingrese su nombre" required><br>
+        <input type="text" name="Apellido" placeholder="Ingrese su apellido" required><br>
+        <input type="email" name="Correo" placeholder="Ingrese su Correo" required><br>
+
+        <label for="FechaDeNacimiento">Fecha de Nacimiento:</label>
+        <input type="date" name="FechaDeNacimiento" required><br>
+        
+        <textarea name="mensaje" cols="30" rows="10" placeholder="Ingrese su mensaje" required></textarea><br>
+
+        <input type="submit" value="Enviar" id="button">
+        
+    </form>
+
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+    </script>
+
+    <script type="text/javascript">
+        emailjs.init('t9znTO-8CP2iICNXG')
+    </script>
+
+</body>
+
+<script>
+    const btn = document.getElementById('button');
+
+    document.getElementById('form')
+    .addEventListener('submit', function(event) {
+    event.preventDefault();
+
+   btn.value = 'Enviando...';
+
+   const serviceID = 'default_service';
+   const templateID = 'template_7shfsix';
+
+   emailjs.sendForm(serviceID, templateID, this)
+    .then(() => {
+      btn.value = 'Enviar';
+      alert('¡Mensaje enviado con éxito!');
+    }, (err) => {
+      btn.value = 'Enviar';
+      alert(JSON.stringify(err));
+    });
+    });
+</script>
+</html>
